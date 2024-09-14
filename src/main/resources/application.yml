@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/gym_db?createDatabaseIfNotExist=true
+    username: root #username
+    password: 12345 #password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate.ddl-auto: update
+server:
+  port: 8082
