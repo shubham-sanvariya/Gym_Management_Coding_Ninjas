@@ -37,4 +37,14 @@ public class Gym {
     @JsonManagedReference
     private List<User> users = new ArrayList<>();
 
+    public Gym(String name, String address, Long contactNo, String membershipPlans, String facilities,
+            List<User> users) {
+        this.name = name;
+        this.address = address;
+        this.contactNo = contactNo;
+        this.membershipPlans = membershipPlans;
+        this.facilities = facilities;
+        this.users = users;
+    }
+
 }
