@@ -68,9 +68,37 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("user not found with Id: " + id));
     }
 
-    // public void updateUser(UserRequest userRequest, Long id) {
-
-    // }
+    public void updateUser(UserRequest userRequest, Long id) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        User user = getUserById(id);
+        user.setEmail(userRequest.getEmail());
+        user.setPassword(encoder.encode(userRequest.getPassword()));
+        user.setAge(userRequest.getAge());
+        user.setGender(userRequest.getGender());
+        Set<Role> roles = user.getRoles();
+        Role role = new Role();
+        
+        if (userRequest.getUserType() != null) {
+            if (userRequest.getUserType().equalsIgnoreCase("TRAINER")) {
+                role.setRoleName("ROLE_TRAINER");
+                roles.add(role);
+                user.setRoles(roles);
+            } else if (userRequest.getUserType().equalsIgnoreCase("ADMIN")) {
+                role.setRoleName("ROLE_ADMIN");
+                roles.add(role);
+                user.setRoles(roles);
+            } else {
+                role.setRoleName("ROLE_CUSTOMER");
+                roles.add(role);
+                user.setRoles(roles);
+            }
+        } else {
+            role.setRoleName("ROLE_CUSTOMER");
+            roles.add(role);
+            user.setRoles(roles);
+        }
+        userRepository.save(user);
+    }
 
     // public void deleteUser(Long id){
         
