@@ -1,6 +1,7 @@
 package com.CN.Gym.service;
 
 import com.CN.Gym.dto.UserRequest;
+import com.CN.Gym.exception.UserNotFoundException;
 import com.CN.Gym.model.Role;
 import com.CN.Gym.model.User;
 import com.CN.Gym.repository.UserRepository;
@@ -62,9 +63,10 @@ public class UserService {
     //     userRepository.save(user);
     // }
 
-    // public User getUserById(Long id) {
-
-    // }
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("user not found with Id: " + id));
+    }
 
     // public void updateUser(UserRequest userRequest, Long id) {
 
