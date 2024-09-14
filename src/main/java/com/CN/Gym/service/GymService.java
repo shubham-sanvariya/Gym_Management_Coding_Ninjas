@@ -75,7 +75,15 @@ public class GymService {
         gymRepository.save(gym);
     }
 
-    // public void deleteMember(Long userId, Long gymId) {
+    public void deleteMember(Long userId, Long gymId) {
+        Gym gym = getGymById(gymId);
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new UserNotFoundException("user not found with Id: " + userId));
 
-    // }
+        user.setGym(null);
+        gym.getUsers().remove(user);
+
+        userRepository.save(user);
+        gymRepository.save(gym);
+    }
 }
