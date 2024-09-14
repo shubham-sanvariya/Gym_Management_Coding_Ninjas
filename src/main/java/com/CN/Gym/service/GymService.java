@@ -1,6 +1,7 @@
 package com.CN.Gym.service;
 
 
+import com.CN.Gym.dto.GymDto;
 import com.CN.Gym.exception.GymNotFoundException;
 import com.CN.Gym.model.Gym;
 import com.CN.Gym.repository.GymRepository;
@@ -37,9 +38,17 @@ public class GymService {
         gymRepository.deleteById(id);
     }
 
-    // public void updateGym(GymDto gymDto, Long id) {
+    public void updateGym(GymDto gymDto, Long id) {
+        Gym gym = getGymById(id);
+        gym.setName(gymDto.getName());
+        gym.setAddress(gymDto.getAddress());
+        gym.setContactNo(gymDto.getContactNo());
+        gym.setMembershipPlans(gymDto.getMembershipPlans());
+        gym.setFacilities(gymDto.getFacilities());
+        gym.setUsers(gymDto.getMembers());
 
-    // }
+        gymRepository.save(gym);
+    }
 
     // public void createGym(GymDto gymDto) {
 
