@@ -32,36 +32,36 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    // public void createUser(UserRequest userRequest) {
-    //     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-    //     String encodedPassword = encoder.encode(userRequest.getPassword());
-    //     User user = User.builder().email(userRequest.getEmail()).age(userRequest.getAge())
-    //             .gender(userRequest.getGender()).password(encodedPassword)
-    //             .build();
-    //     Role role = new Role();
-    //     Set<Role> roles = new HashSet<>();
-    //     if(userRequest.getUserType() != null) {
-    //         if (userRequest.getUserType().equalsIgnoreCase("TRAINER")) {
-    //             role.setRoleName("ROLE_TRAINER");
-    //             roles.add(role);
-    //             user.setRoles(roles);
-    //         } else if (userRequest.getUserType().equalsIgnoreCase("ADMIN")) {
-    //             role.setRoleName("ROLE_ADMIN");
-    //             roles.add(role);
-    //             user.setRoles(roles);
-    //         } else {
-    //             role.setRoleName("ROLE_CUSTOMER");
-    //             roles.add(role);
-    //             user.setRoles(roles);
-    //         }
-    //     }
-    //     else {
-    //         role.setRoleName("ROLE_CUSTOMER");
-    //         roles.add(role);
-    //         user.setRoles(roles);
-    //     }
-    //     userRepository.save(user);
-    // }
+    public void createUser(UserRequest userRequest) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodedPassword = encoder.encode(userRequest.getPassword());
+        User user = User.builder().email(userRequest.getEmail()).age(userRequest.getAge())
+                .gender(userRequest.getGender()).password(encodedPassword)
+                .build();
+        Role role = new Role();
+        Set<Role> roles = new HashSet<>();
+        if(userRequest.getUserType() != null) {
+            if (userRequest.getUserType().equalsIgnoreCase("TRAINER")) {
+                role.setRoleName("ROLE_TRAINER");
+                roles.add(role);
+                user.setRoles(roles);
+            } else if (userRequest.getUserType().equalsIgnoreCase("ADMIN")) {
+                role.setRoleName("ROLE_ADMIN");
+                roles.add(role);
+                user.setRoles(roles);
+            } else {
+                role.setRoleName("ROLE_CUSTOMER");
+                roles.add(role);
+                user.setRoles(roles);
+            }
+        }
+        else {
+            role.setRoleName("ROLE_CUSTOMER");
+            roles.add(role);
+            user.setRoles(roles);
+        }
+        userRepository.save(user);
+    }
 
     public User getUserById(Long id) {
         return userRepository.findById(id)
