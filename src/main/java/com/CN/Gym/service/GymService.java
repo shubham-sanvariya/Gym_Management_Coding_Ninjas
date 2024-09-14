@@ -3,8 +3,11 @@ package com.CN.Gym.service;
 
 import com.CN.Gym.dto.GymDto;
 import com.CN.Gym.exception.GymNotFoundException;
+import com.CN.Gym.exception.UserNotFoundException;
 import com.CN.Gym.model.Gym;
+import com.CN.Gym.model.User;
 import com.CN.Gym.repository.GymRepository;
+import com.CN.Gym.repository.UserRepository;
 
 import java.util.List;
 
@@ -23,6 +26,9 @@ public class GymService {
 
      @Autowired
      private GymRepository gymRepository;
+
+     @Autowired
+     private UserRepository userRepository;
 
 
     public List<Gym> getAllGyms() {   
@@ -58,9 +64,16 @@ public class GymService {
         gymRepository.save(gym);
     }
 
-    // public void addMember(Long userId, Long gymId) {
+    public void addMember(Long userId, Long gymId) {
+        Gym gym = getGymById(gymId);
+        User user = userRepository.findById(userId)
+        .orElseThrow(() -> new UserNotFoundException("user not found with Id: " + userId));
 
-    // }
+        gym.getUsers().add(user);
+        user.setGym(gym);
+        userRepository.save(user);
+        gymRepository.save(gym);
+    }
 
     // public void deleteMember(Long userId, Long gymId) {
 
