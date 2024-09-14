@@ -19,10 +19,13 @@ public class GymService {
         c. Autowire the necessary dependencies.
      */
 
+     @Autowired
+     private GymRepository gymRepository;
 
-    // public List<Gym> getAllGyms() {   
 
-    // }
+    public List<Gym> getAllGyms() {   
+        return gymRepository.findAll();
+    }
 
     //  public Gym getGymById(Long id) {
 
