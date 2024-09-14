@@ -33,9 +33,9 @@ public class GymService {
             .orElseThrow(() -> new GymNotFoundException("gym not found by Id: " + id));
     }
 
-    // public void deleteGymById(Long id) {        
-
-    // }
+    public void deleteGymById(Long id) {        
+        gymRepository.deleteById(id);
+    }
 
     // public void updateGym(GymDto gymDto, Long id) {
 
