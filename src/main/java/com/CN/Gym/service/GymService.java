@@ -50,9 +50,13 @@ public class GymService {
         gymRepository.save(gym);
     }
 
-    // public void createGym(GymDto gymDto) {
+    public void createGym(GymDto gymDto) {
+        Gym gym = new Gym(gymDto.getName(),gymDto.getAddress()
+        ,gymDto.getContactNo(),gymDto.getMembershipPlans()
+        ,gymDto.getFacilities(),gymDto.getMembers());
 
-    // }
+        gymRepository.save(gym);
+    }
 
     // public void addMember(Long userId, Long gymId) {
 
