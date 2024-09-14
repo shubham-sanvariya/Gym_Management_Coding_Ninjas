@@ -1,6 +1,7 @@
 package com.CN.Gym.service;
 
 
+import com.CN.Gym.exception.GymNotFoundException;
 import com.CN.Gym.model.Gym;
 import com.CN.Gym.repository.GymRepository;
 
@@ -27,9 +28,10 @@ public class GymService {
         return gymRepository.findAll();
     }
 
-    //  public Gym getGymById(Long id) {
-
-    // }
+     public Gym getGymById(Long id) {
+        return gymRepository.findById(id)
+            .orElseThrow(() -> new GymNotFoundException("gym not found by Id: " + id));
+    }
 
     // public void deleteGymById(Long id) {        
 
