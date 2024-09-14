@@ -100,9 +100,9 @@ public class UserService {
         userRepository.save(user);
     }
 
-    // public void deleteUser(Long id){
-        
-    // }
+    public void deleteUser(Long id){
+        userRepository.deleteById(id);
+    }
 
     // public void addWorkout(WorkoutDto workoutDto, Long userId) {
 
