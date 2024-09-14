@@ -36,4 +36,11 @@ public class Workout {
     @JsonBackReference
     private User user;
 
+    public Workout(String workoutName, String description, String difficultyLevel, int duration) {
+        this.workoutName = workoutName;
+        this.description = description;
+        this.difficultyLevel = difficultyLevel;
+        this.duration = duration;
+    }
+
 }
