@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -48,8 +49,9 @@ public class GymController {
 
     // 4. PUT "/gym/{id}" (@RequestBody GymDto gymDto, @PathVariable Long id): This API allows admins to update a
     //                                                                         gym record by its ID and returns an OK HTTP status.
-    public void updateGym(){
-
+    @PutMapping("/{id}")
+    public void updateGym(@RequestBody GymDto gymDto, @PathVariable Long id){
+        gymService.updateGym(gymDto,id);
     }
 
 
