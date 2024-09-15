@@ -6,6 +6,8 @@ import com.CN.Gym.service.GymService;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -74,8 +76,9 @@ public class GymController {
 
     // 7. DELETE "/gym/deleteMember" (@PathParam("userId") Long userId, @PathParam("gymId") Long gymId): This API allows the admin to delete users to a particular gym
     //                                                                                                    by passing userId and gymId as path params. It returns an OK HTTP status.
-    public void deleteMember() {
-
+    @DeleteMapping("/deleteMember")
+    public void deleteMember(@PathParam("userId") Long userId, @PathParam("gymId") Long gymId) {
+        gymService.deleteMember(userId,gymId);
     }
 
 }
