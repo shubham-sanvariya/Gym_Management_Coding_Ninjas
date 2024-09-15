@@ -29,6 +29,7 @@ public class GymController {
     private GymService gymService;
     
     // 1. GET “/gym/all”: This API allows the admin to fetch all the gym records and returns an OK HTTP status.
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/all")
     public List<Gym> getAllGyms() {
         return gymService.getAllGyms();
@@ -38,6 +39,7 @@ public class GymController {
     // 2. GET “/gym/{id}” (@PathVariable Long id): This API allows the user to fetch the tax record by its ID
     //                                             and returns an OK HTTP status.
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Gym getGymById(@PathVariable Long id){
         return gymService.getGymById(id);
     }
@@ -54,6 +56,7 @@ public class GymController {
     // 4. PUT "/gym/{id}" (@RequestBody GymDto gymDto, @PathVariable Long id): This API allows admins to update a
     //                                                                         gym record by its ID and returns an OK HTTP status.
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void updateGym(@RequestBody GymDto gymDto, @PathVariable Long id){
         gymService.updateGym(gymDto,id);
     }
@@ -61,6 +64,7 @@ public class GymController {
 
     // 5. DELETE "/gym/{id}" (@PathVariable Long id): This API lets admins delete a gym record by its ID and returns an OK HTTP status.
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteGym(@PathVariable Long id){
         gymService.deleteGymById(id);
     }
@@ -69,6 +73,7 @@ public class GymController {
     // 6. POST "/gym/addMember" (@RequestParam Long userId, @RequestParam Long gymId): This API allows the admin to add users to a particular gym by passing userId
     //                                                                                 and gymId as requestParam. It returns a CREATED HTTP status.
     @PostMapping("/addMember")
+    @ResponseStatus(HttpStatus.CREATED)
     public void addMember(@RequestParam Long userId, @RequestParam Long gymId) {
         gymService.addMember(userId,gymId);
     }
@@ -77,6 +82,7 @@ public class GymController {
     // 7. DELETE "/gym/deleteMember" (@PathParam("userId") Long userId, @PathParam("gymId") Long gymId): This API allows the admin to delete users to a particular gym
     //                                                                                                    by passing userId and gymId as path params. It returns an OK HTTP status.
     @DeleteMapping("/deleteMember")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteMember(@PathParam("userId") Long userId, @PathParam("gymId") Long gymId) {
         gymService.deleteMember(userId,gymId);
     }
