@@ -2,9 +2,11 @@ package com.CN.Gym.controller;
 
 
 import com.CN.Gym.model.User;
+import com.CN.Gym.service.UserService;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,12 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserController {
 
+    @Autowired
+    private UserService userService;
 
     // 1. GET “/user/all”: This API allows the admin to fetch all the users from the database
     //                          and returns an OK HTTP status.
-    // @GetMapping("/all")
+    @GetMapping("/all")
     public List<User> getAllUsers() {
-        return null;
+        return userService.getAllUsers();
     }
 
 
