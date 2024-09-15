@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,8 +27,9 @@ public class GymController {
 
     // 2. GET “/gym/{id}” (@PathVariable Long id): This API allows the user to fetch the tax record by its ID
     //                                             and returns an OK HTTP status.
-    public Gym getGymById(){
-        return null;
+    @GetMapping("/{id}")
+    public Gym getGymById(@PathVariable Long id){
+        return gymService.getGymById(id);
     }
 
 
