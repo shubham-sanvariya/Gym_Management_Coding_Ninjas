@@ -8,8 +8,11 @@ import com.CN.Gym.service.UserService;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,22 +42,25 @@ public class UserController {
 
     // 3. GET “/user/{id}”: This API allows the customer to fetch the user record by its
     //                      ID and returns an OK HTTP status.
-    public User getUserById() {
-        return null;
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
 
 
    // 4. PUT "/user/{id}": This API allows customers to update a user record by its ID and
    //                      returns an OK HTTP status.
-    public void updateUser(){
-
+   @PutMapping("/{id}")
+    public void updateUser(@PathVariable Long id, @RequestBody UserRequest userRequest){
+        // userService.updateUser(userRequest,id);
     }
 
 
     // 5. DELETE "/user/{id}" (@PathVariable Long id): This API lets the admin delete a User record by its ID
     //                                                 and returns an OK HTTP status.
-    public void deleteUser(){
-
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id){
+        // userService.deleteUser(id);
     }
 
 
