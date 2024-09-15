@@ -60,7 +60,7 @@ public class UserController {
     //                                                 and returns an OK HTTP status.
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id){
-        // userService.deleteUser(id);
+        userService.deleteUser(id);
     }
 
 
