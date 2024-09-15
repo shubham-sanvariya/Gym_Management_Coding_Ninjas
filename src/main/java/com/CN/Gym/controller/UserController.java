@@ -2,6 +2,7 @@ package com.CN.Gym.controller;
 
 
 import com.CN.Gym.dto.UserRequest;
+import com.CN.Gym.dto.WorkoutDto;
 import com.CN.Gym.model.User;
 import com.CN.Gym.service.UserService;
 
@@ -66,7 +67,8 @@ public class UserController {
 
     // 6. POST "/user/workout/{userId}" (@RequestBody WorkoutDto workoutDto, @PathVariable Long userId): This API allows the trainer to assign a workout to a customer by its
     //                                                                                                    ID and returns a CREATED HTTP status.
-    public void addWorkout() {
-
+    @PostMapping("/workout/{userId}")
+    public void addWorkout(@RequestBody WorkoutDto workoutDto, @PathVariable Long userId) {
+        userService.addWorkout(workoutDto,userId);
     }
 }
