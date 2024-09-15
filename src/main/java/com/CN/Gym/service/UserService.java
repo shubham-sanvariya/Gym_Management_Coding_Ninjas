@@ -1,10 +1,14 @@
 package com.CN.Gym.service;
 
 import com.CN.Gym.dto.UserRequest;
+import com.CN.Gym.dto.WorkoutDto;
 import com.CN.Gym.exception.UserNotFoundException;
 import com.CN.Gym.model.Role;
 import com.CN.Gym.model.User;
+import com.CN.Gym.model.Workout;
 import com.CN.Gym.repository.UserRepository;
+import com.CN.Gym.repository.WorkoutRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +31,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private WorkoutRepository workoutRepository;
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -104,7 +111,17 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    // public void addWorkout(WorkoutDto workoutDto, Long userId) {
+    public void addWorkout(WorkoutDto workoutDto, Long userId) {
+        User user = getUserById(userId);
+        Workout workout = new Workout(workoutDto.getWorkoutName(),
+        workoutDto.getDescription(),workoutDto.getDifficultyLevel(),
+        workoutDto.getDuration());
 
-    // }
+        workout.setUser(user);
+        user.getWorkouts().add(workout);
+
+        workoutRepository.save(workout);
+        userRepository.save(user);
+
+    }
 }
