@@ -1,6 +1,7 @@
 package com.CN.Gym.controller;
 
 
+import com.CN.Gym.dto.UserRequest;
 import com.CN.Gym.model.User;
 import com.CN.Gym.service.UserService;
 
@@ -8,6 +9,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,8 +31,9 @@ public class UserController {
 
     // 2. POST "/user/register" (@RequestBody UserRequest userRequest): This API registers a new user record into the database
     //                                                                  and can be accessed by anyone. It returns a CREATED HTTP status.
-    public void registerUser() {
-
+    @PostMapping("/register")
+    public void registerUser(@RequestBody UserRequest userRequest) {
+        userService.createUser(userRequest);
     }
 
 
