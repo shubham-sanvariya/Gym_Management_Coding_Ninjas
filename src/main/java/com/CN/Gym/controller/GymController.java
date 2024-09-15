@@ -10,6 +10,7 @@ import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class GymController {
     // 1. GET “/gym/all”: This API allows the admin to fetch all the gym records and returns an OK HTTP status.
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/all")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Gym> getAllGyms() {
         return gymService.getAllGyms();
     }
@@ -40,6 +42,7 @@ public class GymController {
     //                                             and returns an OK HTTP status.
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ADMIN')")
     public Gym getGymById(@PathVariable Long id){
         return gymService.getGymById(id);
     }
@@ -48,6 +51,7 @@ public class GymController {
     // 3. POST /gym/create: This API allows the admin to create a gym record and returns a CREATED HTTP status.
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ADMIN')")
     public void createGym(@RequestBody GymDto gymDto) {
         gymService.createGym(gymDto);
     }
@@ -57,6 +61,7 @@ public class GymController {
     //                                                                         gym record by its ID and returns an OK HTTP status.
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ADMIN')")
     public void updateGym(@RequestBody GymDto gymDto, @PathVariable Long id){
         gymService.updateGym(gymDto,id);
     }
@@ -65,6 +70,7 @@ public class GymController {
     // 5. DELETE "/gym/{id}" (@PathVariable Long id): This API lets admins delete a gym record by its ID and returns an OK HTTP status.
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteGym(@PathVariable Long id){
         gymService.deleteGymById(id);
     }
@@ -74,6 +80,7 @@ public class GymController {
     //                                                                                 and gymId as requestParam. It returns a CREATED HTTP status.
     @PostMapping("/addMember")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ADMIN')")
     public void addMember(@RequestParam Long userId, @RequestParam Long gymId) {
         gymService.addMember(userId,gymId);
     }
@@ -83,6 +90,7 @@ public class GymController {
     //                                                                                                    by passing userId and gymId as path params. It returns an OK HTTP status.
     @DeleteMapping("/deleteMember")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteMember(@PathParam("userId") Long userId, @PathParam("gymId") Long gymId) {
         gymService.deleteMember(userId,gymId);
     }
