@@ -1,6 +1,15 @@
 package com.CN.Gym.config;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class GymSecurityConfig {
 
     /*
@@ -9,5 +18,18 @@ public class GymSecurityConfig {
         3. Create securityFilterChain bean with httpBasic security and use antMatcher to make "/user/register"
            an open API.
      */
+
+     @Bean
+     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+        http.csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/user/register").permitAll()
+            .anyRequest()
+            .authenticated()
+            .and()
+            .httpBasic();
+        
+        return http.build();
+     }
 
 }
