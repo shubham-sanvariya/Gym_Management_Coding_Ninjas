@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -65,8 +66,9 @@ public class GymController {
 
     // 6. POST "/gym/addMember" (@RequestParam Long userId, @RequestParam Long gymId): This API allows the admin to add users to a particular gym by passing userId
     //                                                                                 and gymId as requestParam. It returns a CREATED HTTP status.
-    public void addMember() {
-
+    @PostMapping("/addMember")
+    public void addMember(@RequestParam Long userId, @RequestParam Long gymId) {
+        gymService.addMember(userId,gymId);
     }
 
 
