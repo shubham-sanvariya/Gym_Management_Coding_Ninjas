@@ -33,7 +33,7 @@ public class Gym {
     private String membershipPlans;
     private String facilities;
 
-    @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<User> users = new ArrayList<>();
 
@@ -44,6 +44,14 @@ public class Gym {
         this.contactNo = contactNo;
         this.membershipPlans = membershipPlans;
         this.facilities = facilities;
+        this.users = users;
+    }
+
+    public List<User> getMembers(){
+        return users;
+    }
+
+    public void setMembers(List<User> users){
         this.users = users;
     }
 
