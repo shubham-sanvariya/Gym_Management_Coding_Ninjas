@@ -52,7 +52,7 @@ public class UserController {
    //                      returns an OK HTTP status.
    @PutMapping("/{id}")
     public void updateUser(@PathVariable Long id, @RequestBody UserRequest userRequest){
-        // userService.updateUser(userRequest,id);
+        userService.updateUser(userRequest,id);
     }
 
 
