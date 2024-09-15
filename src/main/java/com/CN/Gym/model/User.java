@@ -43,7 +43,7 @@ public class User implements UserDetails {
     @JsonBackReference
     private Gym gym;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Workout> workouts = new ArrayList<>();
 
