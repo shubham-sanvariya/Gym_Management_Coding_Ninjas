@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class UserController {
     // and returns an OK HTTP status.
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ADMIN')")
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
@@ -49,6 +51,7 @@ public class UserController {
     // ID and returns an OK HTTP status.
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('CUSTOMER')")
     public User getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
@@ -58,6 +61,7 @@ public class UserController {
     // returns an OK HTTP status.
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('CUSTOMER')")
     public void updateUser(@PathVariable Long id, @RequestBody UserRequest userRequest) {
         userService.updateUser(userRequest, id);
     }
@@ -67,6 +71,7 @@ public class UserController {
     // and returns an OK HTTP status.
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
@@ -77,6 +82,7 @@ public class UserController {
     // ID and returns a CREATED HTTP status.
     @PostMapping("/workout/{userId}")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('TRAINER')")
     public void addWorkout(@RequestBody WorkoutDto workoutDto, @PathVariable Long userId) {
         userService.addWorkout(workoutDto, userId);
     }
