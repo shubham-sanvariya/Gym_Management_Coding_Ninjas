@@ -1,15 +1,26 @@
 package com.CN.Gym.controller;
 
 import com.CN.Gym.model.Gym;
+import com.CN.Gym.service.GymService;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/gym")
 public class GymController {
 
-
+    @Autowired
+    private GymService gymService;
+    
     // 1. GET “/gym/all”: This API allows the admin to fetch all the gym records and returns an OK HTTP status.
+    @GetMapping("/all")
     public List<Gym> getAllGyms() {
-        return null;
+        return gymService.getAllGyms();
     }
 
 
