@@ -16,4 +16,12 @@ public class JwtAuthenticationHelper {
                         
             return claims;
     }
+
+    public String getUserNameFromToken(String token){
+        Claims claims = getClaimsFromToken(token);
+
+        String username = claims.getSubject();
+
+        return username;
+    }
 }
