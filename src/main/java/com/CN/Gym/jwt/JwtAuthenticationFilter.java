@@ -37,12 +37,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
         if (requestHeader != null && requestHeader.startsWith("Bearer")) {
             // "Bearer" : "TOKEN"
             token = requestHeader.split(" ")[1];
-
+            // System.out.println(token);
             username = jwtHelper.getUserNameFromToken(token);
             if (username != null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-                if (jwtHelper.isTokenExpired(token) && SecurityContextHolder.getContext() == null) {
+                // if (jwtHelper.isTokenExpired(token) && SecurityContextHolder.getContext() == null) {
+                if (!jwtHelper.isTokenExpired(token)) {
                     UsernamePasswordAuthenticationToken upat = 
                         new UsernamePasswordAuthenticationToken(token,null,userDetails.getAuthorities());
 
