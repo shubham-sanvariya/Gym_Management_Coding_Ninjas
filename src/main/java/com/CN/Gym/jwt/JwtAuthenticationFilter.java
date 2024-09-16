@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -16,6 +18,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
     @Autowired
     JwtAuthenticationHelper jwtHelper;
+
+    @Autowired
+    UserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -31,6 +36,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
             token = requestHeader.split(" ")[1];
 
             username = jwtHelper.getUserNameFromToken(token);
+            if (username != null) {
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            }
         }
     }
     
