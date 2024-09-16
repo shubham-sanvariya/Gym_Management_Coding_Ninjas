@@ -8,10 +8,14 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.CN.Gym.jwt.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -28,21 +32,35 @@ public class GymSecurityConfig {
      @Autowired
       UserDetailsService userDetailsService;
 
+      @Autowired
+      JwtAuthenticationFilter filter;
+
      @Bean
      public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
          http.csrf().disable()
-            .authorizeRequests()
-            .antMatchers("/user/register").permitAll()
-            .and()
-            .rememberMe().userDetailsService(userDetailsService)
-            .and()
-            .formLogin()
-            .loginPage("/login").permitAll()
-            .and()
-            .logout().deleteCookies("remember-me");
+               .authorizeRequests()
+               .antMatchers("/user/register","/auth/login").permitAll()
+               .anyRequest()
+               .authenticated()
+               .and()
+               .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+         http.addFilterBefore(filter,UsernamePasswordAuthenticationFilter.class);
+
+         return http.build();
+         // for remember me login
+         // http.csrf().disable()
+         //    .authorizeRequests()
+         //    .antMatchers("/user/register").permitAll()
+         //    .and()
+         //    .rememberMe().userDetailsService(userDetailsService)
+         //    .and()
+         //    .formLogin()
+         //    .loginPage("/login").permitAll()
+         //    .and()
+         //    .logout().deleteCookies("remember-me");
         
-        return http.build();
      }
 
      @Bean
