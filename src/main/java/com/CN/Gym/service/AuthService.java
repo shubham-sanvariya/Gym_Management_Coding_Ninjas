@@ -24,7 +24,7 @@ public class AuthService {
     @Autowired
     JwtAuthenticationHelper jwtHelper;
     
-    public JwtResponse getResponse(JwtRequest jwtRequest){
+    public JwtResponse login(JwtRequest jwtRequest){
         this.doAuthenticate(jwtRequest.getUsername(),jwtRequest.getPassword());
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(jwtRequest.getUsername());
