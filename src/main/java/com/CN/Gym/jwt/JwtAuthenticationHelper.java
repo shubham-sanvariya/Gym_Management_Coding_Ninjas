@@ -1,5 +1,7 @@
 package com.CN.Gym.jwt;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -23,5 +25,13 @@ public class JwtAuthenticationHelper {
         String username = claims.getSubject();
 
         return username;
+    }
+
+    public boolean isTokenExpired(String token){
+        Claims claims = getClaimsFromToken(token);
+
+        Date expireDate = claims.getExpiration();
+
+        return expireDate.before(new Date());
     }
 }
