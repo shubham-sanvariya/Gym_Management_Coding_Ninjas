@@ -16,8 +16,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'doFilterInternal'");
+        
+        String requestHeader = request.getHeader("Authorization");
+
+        String username = null;
+        String token = null;
+
+        if (requestHeader != null) {
+            // "Bearer" : "TOKEN"
+            token = requestHeader.split(" ")[1];
+        }
     }
     
 
