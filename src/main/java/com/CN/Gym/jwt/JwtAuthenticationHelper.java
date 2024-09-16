@@ -16,7 +16,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JwtAuthenticationHelper {
 
-    private static final String TOKEN_SECRECT_KEY = "ValarMorghulisvalardohaeris";
+    private static final String TOKEN_SECRECT_KEY = "C72eIP66fCixbpmOI2GyWLplmr07KdYZAZ3NtEENMbcngfn6CJJ90gXEFkLcDohaufVRW3oJ0hgklN8hVZtg6A";
     private static final long TOKEN_VALIDITY = 60*60;
     
     public Claims getClaimsFromToken(String token){
@@ -30,6 +30,7 @@ public class JwtAuthenticationHelper {
         Map<String ,Object> map = new HashMap<>();
 
         return Jwts.builder().setClaims(map)
+                .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY * 1000))
                 .signWith(new SecretKeySpec(TOKEN_SECRECT_KEY.getBytes(), 
